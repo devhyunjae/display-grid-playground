@@ -19,11 +19,23 @@ import "focus-visible/dist/focus-visible";
 export const App = () => (
   <ChakraProvider theme={theme}>
     <div style={{ width: "100%", height: "100%" }}>
-      <Grid templateRows="82px 1fr 100px" height="100%">
-        <Box bg="yellow" position="sticky" top="0" zIndex={1000} fontFamily='monospace'>
+      <Grid templateRows="82px 1fr 100px" height="100%" templateAreas={{
+        sm: `
+        'h'
+        'f'
+        'c'
+      `,
+        lg: `
+        'h'
+        'c'
+        'f'
+      `
+      }}
+      >
+        <Box bg="yellow" position="sticky" top="0" zIndex={1000} gridArea='h'>
           header
         </Box>
-        <Container maxW="container.xl" py="30px">
+        <Container maxW="container.xl" py="30px" gridArea='c'>
           <Grid
             templateColumns={{
               sm: "1fr",
@@ -37,6 +49,9 @@ export const App = () => (
               css={{
                 border: "1px solid #e9e9e9",
                 height: 644,
+                ":hover": {
+                  boxShadow: '0 2px 30px 0 rgba(0, 0, 0, 0.07)',
+                }
               }}
             >
               <Button>asdad</Button>
@@ -83,7 +98,7 @@ export const App = () => (
             </GridItem>
           </Grid>
         </Container>
-        <Box bg="green.100">footer</Box>
+        <Box bg="green.100" gridArea='f'>footer</Box>
       </Grid>
     </div>
   </ChakraProvider>
